@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
+const cors = require('cors');
 const limiter = require('./middlewares/rateLimiter');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { errorHandler } = require('./middlewares/errorHandler');
@@ -11,6 +12,8 @@ const router = require('./routes/index');
 const { PORT = 3000 } = process.env;
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017/newsdb';
 const app = express();
+
+app.use(cors());
 
 mongoose.connect(mongoUrl, {
   useNewUrlParser: true,
